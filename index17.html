@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quà Tặng Ngày 20/10</title>
+    
+    <!-- Thêm CSS vào đây -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: pink; /* Đổi nền thành màu hồng */
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            border: 2px solid #f28e1c;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            display: inline-block; /* Căn giữa phần quà */
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #f28e1c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .gift-img {
+            width: 200px;
+            margin-top: 20px;
+        }
+
+        #gift {
+            display: none;
+        }
+
+        #gift.show {
+            display: block;
+            animation: openGift 0.5s ease forwards;
+        }
+
+        @keyframes openGift {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        #heart-container {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Đảm bảo không ảnh hưởng đến tương tác của người dùng */
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            transform: rotate(-45deg);
+            animation: fly 2s ease-in-out forwards;
+        }
+
+        .heart:before, .heart:after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+        }
+
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart:after {
+            left: 10px;
+            top: 0;
+        }
+
+        @keyframes fly {
+            0% {
+                bottom: 0px;
+                opacity: 1;
+                transform: rotate(-45deg) scale(1);
+            }
+            100% {
+                bottom: 150px;
+                opacity: 0;
+                transform: rotate(-45deg) scale(1.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chúc Mừng Ngày 20/10!</h1>
+        <p>Đây là món quà nhỏ xinh dành tặng em!</p>
+        <button id="giftButton">Mở Quà</button>
+        <div id="gift" class="hidden">
+            <h2>❤️ Thương em bé của a rất Nhiều!  ❤️</h2>
+            <p>20/10 cười thật vui vẻ em nhé bởi em hoàn toàn xứng đáng với những điều tốt đẹp nhất trên đời này. Dù anh không thể ở bên em lúc này nhưng anh luôn hy vọng rằng em luôn rạng rỡ với nụ cười trên môi. Anh sẽ sớm trở về gần bên em. Nhờ gió mang nụ hôn và cái ôm ấm áp của anh tới bên em lúc này.Thương yêu em rất nhiều!</p>
+            <img src="D:\bear.png" alt="Gấu Dâu Đỏ" class="gift-img">
+        </div>
+    </div>
+
+    <!-- Nơi chứa các trái tim bay -->
+    <div id="heart-container"></div>
+
+    <!-- JavaScript -->
+    <script>
+        document.getElementById('giftButton').addEventListener('click', function() {
+            const gift = document.getElementById('gift');
+            
+            // Kiểm tra nếu quà đang ẩn, thì hiện ra và thêm hiệu ứng
+            if (gift.classList.contains('hidden')) {
+                gift.classList.remove('hidden');
+                gift.classList.add('show');
+                gift.style.animation = 'openGift 0.5s ease forwards';
+                createHearts(); // Gọi hàm tạo trái tim sau khi món quà hiện ra
+            } else {
+                // Nếu đã hiện, thì ẩn đi và reset hiệu ứng
+                gift.classList.remove('show');
+                gift.classList.add('hidden');
+                gift.style.animation = 'none'; // Dừng animation
+            }
+        });
+
+        // Hàm tạo các trái tim bay
+        function createHearts() {
+            const heartContainer = document.getElementById('heart-container');
+
+            for (let i = 0; i < 20; i++) { // Tạo 20 trái tim
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+
+                // Tạo vị trí ngẫu nhiên cho các trái tim
+                heart.style.left = `${Math.random() * 100}vw`; // Vị trí ngẫu nhiên theo chiều ngang
+                heart.style.animationDelay = `${Math.random() * 2}s`; // Tạo độ trễ ngẫu nhiên
+
+                heartContainer.appendChild(heart);
+
+                // Xóa trái tim sau khi animation kết thúc (sau 2 giây)
+                setTimeout(() => {
+                    heart.remove();
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
